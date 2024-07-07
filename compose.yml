@@ -1,0 +1,15 @@
+services:
+  nextjs:
+    build:
+      context: .
+    ports:
+      - "12000:3000"
+    volumes:
+      - .:/nextjs
+      - node_modules:/nextjs/node_modules
+    command: sh -c "npm run dev"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  node_modules:
