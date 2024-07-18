@@ -1,10 +1,23 @@
 import { HStack, IconButton, Input } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GoArrowUp } from "react-icons/go";
 
+// const [] = useState();
+
 const SubmitReview = () => {
+  const chatRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const chat = chatRef.current;
+    if(chat) {
+      const message = document.createElement('Box')
+      message.textContent = 'message';
+      chat.appendChild(message);
+    }
+  }, [])
+
   return (
-    <form className="flex-shrink-0 relative flex items-center justify-center ">
+    <form className="flex-shrink-0 relative flex items-center justify-center">
       <HStack width="80%">
         <Input
           focusBorderColor="teal.500"
@@ -21,7 +34,7 @@ const SubmitReview = () => {
           //   onChange={(e) => setEnteredTodo(e.target.value)}
         />
         <IconButton
-          aria-label="Submit Review"
+          aria-label=""
           icon={<GoArrowUp />}
           isRound
           colorScheme="teal"
