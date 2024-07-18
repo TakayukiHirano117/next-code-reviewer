@@ -7,11 +7,12 @@ class OpenaiClient {
     this.apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY as string;
   }
 
-  async completion(messages: string) {
+  async completion(messages: Array<Object>) {
     const requestData = {
       model: "gpt-3.5-turbo",
       messages,
     };
+
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       requestData,
@@ -22,6 +23,7 @@ class OpenaiClient {
         },
       }
     );
+
     return response.data.choices[0].message.content;
   }
 }
