@@ -60,14 +60,10 @@
 
 | 言語・フレームワーク  | バージョン |
 | --------------------- | ---------- |
-| Python                | 3.11.4     |
-| Django                | 4.2.1      |
-| Django Rest Framework | 3.14.0     |
-| MySQL                 | 8.0        |
-| Node.js               | 16.17.0    |
-| React                 | 18.2.0     |
-| Next.js               | 13.4.6     |
-| Terraform             | 1.3.6      |
+| Node.js               | 20.12.1    |
+| React                 | ^18    |
+| Next.js               | 14.2.4    |
+| tailwindcss           | ^3.4.1   |
 
 その他のパッケージのバージョンはpackage.json を参照してください
 
