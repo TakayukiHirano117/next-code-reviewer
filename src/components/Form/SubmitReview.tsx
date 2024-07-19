@@ -1,20 +1,41 @@
+import openai from "@/lib/openai";
 import { HStack, IconButton, Input } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { GoArrowUp } from "react-icons/go";
 
-// const [] = useState();
+const SubmitReview: React.FC = ({ handleUserMessage, createMessage }) => {
+  // const chatRef = useRef<HTMLDivElement>(null);
 
-const SubmitReview = () => {
-  const chatRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const chat = chatRef.current;
-    if(chat) {
-      const message = document.createElement('Box')
-      message.textContent = 'message';
-      chat.appendChild(message);
-    }
-  }, [])
+  // useEffect(() => {
+  //   const chat = chatRef.current;
+  //   if(chat) {
+  //     const message = document.createElement('Box')
+  //     message.textContent = 'message';
+  //     chat.appendChild(message);
+  //   }
+  // }, [])
+
+  const [inputMessage, setInputMessage] = useState<string>("");
+
+  const handleInputChange = () => {
+    handleUserMessage(inputMessage);
+  };
+
+  const callOpenAI = async (userMessage: string) => {
+    const messages = [
+      {
+        role: "user",
+        content: userMessage,
+      },
+    ];
+
+    const result = await openai.completion(messages);
+    createMessage(result, "AI");
+
+    console.log(result);
+
+    return result;
+  };
 
   return (
     <form className="flex-shrink-0 relative flex items-center justify-center">
@@ -30,6 +51,20 @@ const SubmitReview = () => {
           borderRadius="32px"
           bgColor="white"
           variant="flushed"
+          value={inputMessage}
+          onChange={(e) => {
+            console.log(e.target.value);
+            setInputMessage(e.target.value);
+            handleInputChange;
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              // userのメッセージを描画するのと、api叩く処理
+              createMessage(inputMessage, "user");
+              callOpenAI(inputMessage);
+              setInputMessage("");
+            }
+          }}
           //   value={enteredTodo}
           //   onChange={(e) => setEnteredTodo(e.target.value)}
         />
@@ -42,6 +77,11 @@ const SubmitReview = () => {
           bgColor="white"
           variant="outline"
           type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            // console.log("clicked");
+            // setInputMessage("");
+          }}
         />
       </HStack>
     </form>
