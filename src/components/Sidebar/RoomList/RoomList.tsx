@@ -7,7 +7,8 @@ const RoomList = () => {
       <ListItem
         textAlign="center"
         // m="2"
-        p="2"
+        py="1"
+        px="2"
         cursor="pointer"
         transition=".3s"
         _hover={{ backgroundColor: "gray.200" }}

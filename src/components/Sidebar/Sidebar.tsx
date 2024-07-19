@@ -18,7 +18,7 @@ const Sidebar = () => {
       background="#f8fafc"
     >
       <NewChatButton />
-      <Divider orientation="horizontal" />
+      <Divider orientation="horizontal" borderColor="teal.600"/>
       <RoomList />
       <Spacer />
       <LogoutButton />
