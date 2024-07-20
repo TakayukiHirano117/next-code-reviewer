@@ -79,7 +79,8 @@ const SubmitReview: React.FC = ({ handleUserMessage, createMessage }) => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            // console.log("clicked");
+            // createMessage(inputMessage, "user");
+            // callOpenAI(inputMessage);
             // setInputMessage("");
           }}
         />

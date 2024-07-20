@@ -1,8 +1,14 @@
 import { Box, Button } from "@chakra-ui/react";
-import { FiLogOut } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { FiLogOut } from "react-icons/fi";
 
-const LogoutButton = ({handleLogout}) => {
+const LoginButton = () => {
+  const router = useRouter();
+
+  const navigateLoginPage = () => {
+    router.push('/auth/login')
+  }
   return (
     <Box>
       <Button
@@ -12,12 +18,12 @@ const LogoutButton = ({handleLogout}) => {
         size={{ sm: "sm", md: "md", lg: "lg" }}
         variant="outline"
         leftIcon={<FiLogOut />}
-        onClick={handleLogout}
+        onClick={navigateLoginPage}
       >
-        Log Out
+        Log in
       </Button>
     </Box>
   );
 };
 
-export default LogoutButton;
+export default LoginButton;

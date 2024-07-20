@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NewChatButton from "../Button/NewChatButton";
 import {
   Divider,
@@ -7,8 +7,32 @@ import {
 } from "@chakra-ui/react";
 import LogoutButton from "../Button/LogoutButton";
 import RoomList from "./RoomList/RoomList";
+import UserInfo from "./UserInfo/UserInfo";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import LoginButton from "../Button/LoginButton";
+
+const handleLogout = () => {
+  auth.signOut();
+};
 
 const Sidebar = () => {
+
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    // クリーンアップ関数
+    return () => unsubscribe();
+  }, []);
+  
   return (
     <VStack
       h="100%"
@@ -21,7 +45,8 @@ const Sidebar = () => {
       <Divider orientation="horizontal" borderColor="teal.600"/>
       <RoomList />
       <Spacer />
-      <LogoutButton />
+      {user && <UserInfo user={user} />}
+      {user ? <LogoutButton handleLogout={handleLogout} /> : <LoginButton />}
     </VStack>
   );
 };
